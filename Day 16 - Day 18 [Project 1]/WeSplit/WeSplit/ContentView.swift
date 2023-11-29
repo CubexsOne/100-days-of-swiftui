@@ -16,13 +16,19 @@ struct ContentView: View {
     let tipPercentages = [0, 10, 15, 20, 25]
     let currency = Locale.current.currency?.identifier ?? "EUR"
     
-    var totalPerPerson: Double {
-        let peopleCount = Double(numberOfPeople + 2)
+    var totalAmountWithTip: Double {
         let tipSelection = Double(tipPercentage)
         
         let tipValue = checkAmount / 100 * tipSelection
         let grandTotal = checkAmount + tipValue
-        let amountPerPerson = grandTotal / peopleCount
+
+        return grandTotal
+    }
+    
+    var totalPerPerson: Double {
+        let peopleCount = Double(numberOfPeople + 2)
+        let amountPerPerson = totalAmountWithTip / peopleCount
+
         return amountPerPerson
     }
 
@@ -46,17 +52,28 @@ struct ContentView: View {
                     .pickerStyle(.navigationLink)
                 }
                 
+//                Section("How much do you want to tip?") {
+//                    Picker("Tip percentage", selection: $tipPercentage) {
+//                        ForEach(tipPercentages, id: \.self) {
+//                            Text($0, format: .percent)
+//                        }
+//                    }
+//                    .pickerStyle(.segmented)
+//                }
                 Section("How much do you want to tip?") {
                     Picker("Tip percentage", selection: $tipPercentage) {
-                        ForEach(tipPercentages, id: \.self) {
+                        ForEach(0..<101) {
                             Text($0, format: .percent)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.navigationLink)
                 }
-
                 
-                Section("Total") {
+                Section("Total amount (with Tip)") {
+                    Text(totalAmountWithTip, format: .currency(code: currency))
+                }
+                
+                Section("Amount per person") {
                     Text(totalPerPerson, format: .currency(code: currency))
                 }
             }
