@@ -23,21 +23,45 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             Text("Rock, Paper, Scissors")
-            Text("I chose")
-            Text("\(moveIconMap[moves[0]] ?? "")")
-            Text("You should")
-            Text(roundResult ? "Win" : "Lose")
-            
-            ForEach(1..<3) { number in
-                Button {
-                    answerQuestion(number)
-                    askQuestion()
-                } label: {
-                    Text(moveIconMap[moves[number]] ?? "")
+                .foregroundColor(.white)
+                .font(.largeTitle)
+            Spacer()
+            VStack {
+                VStack {
+                    Text("You should\(roundResult ? "" : " not") beat my")
+                        .font(.title)
+                    Text("\(moveIconMap[moves[0]] ?? "")")
+                        .font(.system(size: 96))
+                    
+                    Text("What do you chose?")
+                        .font(.headline)
+                    HStack {
+                        ForEach(1..<3) { number in
+                            Button {
+                                answerQuestion(number)
+                                askQuestion()
+                            } label: {
+                                Text(moveIconMap[moves[number]] ?? "")
+                                    .font(.system(size: 64))
+                            }
+                            .padding(.horizontal, 20)
+                        }
+                        .padding(.top, 10)
+                    }
                 }
+                .frame(width: 320)
+                .padding()
+                .background(.ultraThinMaterial)
+                .clipShape(.rect(cornerRadius: 16))
             }
             Text("Score: \(score)")
+                .font(.largeTitle)
+                .foregroundStyle(.white)
+                .padding()
+            Spacer()
+            Spacer()
         }
         .alert("Game Over", isPresented: $showResult) {
             Button("Restart") {
@@ -47,6 +71,8 @@ struct ContentView: View {
         } message: {
             Text("You scored \(score)")
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.35, green: 0, blue: 0.2).gradient)
     }
     
     func answerQuestion(_ answer: Int) {
