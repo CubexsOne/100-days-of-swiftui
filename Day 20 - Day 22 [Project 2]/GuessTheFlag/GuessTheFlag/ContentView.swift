@@ -30,6 +30,10 @@ struct ContentView: View {
     @State private var rounds = 0
     let maxRounds = 8
     
+    @State private var flagRotation = [0.0, 0.0, 0.0]
+    @State private var answered = false
+    @State private var tappedAnswer = -1
+    
     var body: some View {
         ZStack {
             RadialGradient(stops: [
@@ -57,9 +61,17 @@ struct ContentView: View {
                     ForEach(0..<3) { number in
                         Button {
                             flagTapped(number)
+                            answered = true
+                            tappedAnswer = number
                         } label: {
                             FlagImage(image: countries[number])
-                        }
+                        }.rotation3DEffect(
+                            .degrees(flagRotation[number]),
+                            axis: /*@START_MENU_TOKEN@*/(x: 0.0, y: 1.0, z: 0.0)/*@END_MENU_TOKEN@*/
+                        )
+                        .opacity(answered && number != tappedAnswer ? 0.25 : 1)
+                        .scaleEffect(answered && number != tappedAnswer ? 0.25 : 1)
+                        .animation(.linear, value: answered)
                         
                     }
                 }
@@ -96,6 +108,10 @@ struct ContentView: View {
     }
     
     func flagTapped(_ number: Int) {
+        withAnimation {
+            flagRotation[number] += 360
+        }
+
         if number == correctAnswer {
             scoreTitle = "Correct"
             score += 10
@@ -116,6 +132,8 @@ struct ContentView: View {
             return
         }
         rounds += 1
+        answered = false
+        tappedAnswer = -1
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
     }
