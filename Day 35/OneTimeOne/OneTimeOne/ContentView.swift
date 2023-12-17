@@ -127,7 +127,6 @@ struct ContentView: View {
     }
     
     func getQuestionBackground() -> Color {
-        print("Status: \(answerStatus)")
         switch answerStatus {
         case .correct:
             return .green
