@@ -88,8 +88,13 @@ struct ContentView: View {
                     .listRowBackground(Color.clear)
                     .frame(maxWidth: .infinity, minHeight: 120)
                     Section("Was ist die Lösung?") {
-                        TextField("Lösung?", text: $answerInput)
-                            .keyboardType(.decimalPad)
+                        HStack {
+                            TextField("Lösung?", text: $answerInput)
+                                .keyboardType(.decimalPad)
+                            Button("Senden") {
+                                giveAnswer()
+                            }
+                        }
                     }
                 }
             }
