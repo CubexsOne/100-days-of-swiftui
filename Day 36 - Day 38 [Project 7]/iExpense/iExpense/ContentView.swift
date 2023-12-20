@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+let localCurrency = Locale.current.currency?.identifier ?? "USD"
+let types = ["Business", "Personal"]
+
 struct ExpenseItem: Identifiable, Codable {
     var id = UUID()
     
@@ -37,15 +40,38 @@ class Expenses {
     }
 }
 
-struct ContentView: View {
-    @State private var expenses = Expenses()
-    
-    @State private var showingAddExpense = false
+struct AmountIcon: View {
+    let amount: Double
 
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(expenses.items) { item in
+        switch amount {
+        case 0...10:
+            Spacer().frame(width: 30)
+        case 11...100:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(Color(red: 1, green: 0.64, blue: 0))
+        default:
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.red)
+        }
+    }
+}
+
+struct ListFilteredByType: View {
+    let type: String
+    var items: [ExpenseItem]
+    let removeItem: (Int) -> Void
+    
+    var filteredItems: [ExpenseItem] {
+        items.filter({ item in
+            item.type == type
+        })
+    }
+    
+    var body: some View {
+        if filteredItems.count > 0 {
+            Section(type) {
+                ForEach(filteredItems) { item in
                     HStack {
                         VStack(alignment: .leading) {
                             Text(item.name)
@@ -56,10 +82,40 @@ struct ContentView: View {
                         
                         Spacer()
                         
-                        Text(item.amount, format: .currency(code: "USD"))
+                        HStack {
+                            Text(item.amount, format: .currency(code: localCurrency))
+                            AmountIcon(amount: item.amount)
+                        }
+                        
                     }
                 }
-                .onDelete(perform: removeItems)
+                .onDelete(perform: deleteItem)
+            }
+        }
+    }
+    
+    func deleteItem(at offsets: IndexSet) {
+        for index in offsets {
+            if let deleteIndex = items.firstIndex(where: { item in
+                item.id == filteredItems[index].id
+            }) {
+                removeItem(deleteIndex)
+            }
+        }
+    }
+}
+
+struct ContentView: View {
+    @State private var expenses = Expenses()
+    
+    @State private var showingAddExpense = false
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(types, id:\.self) {
+                    ListFilteredByType(type: $0, items: expenses.items, removeItem: removeItem)
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -73,8 +129,8 @@ struct ContentView: View {
         }
     }
     
-    func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
+    func removeItem(at index:  Int) {
+        expenses.items.remove(at: index)
     }
 }
 
