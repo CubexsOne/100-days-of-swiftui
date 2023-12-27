@@ -16,14 +16,61 @@ struct CustomDivider: View {
     }
 }
 
-struct MissionView: View {
+struct AstronautScroller: View {
     struct CrewMember {
         let role: String
         let astronaut: Astronaut
     }
-    
-    let mission: Mission
+
     let crew: [CrewMember]
+
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(crew, id: \.role) { crewMember in
+                    NavigationLink {
+                        AstronautView(astronaut: crewMember.astronaut)
+                    } label: {
+                        HStack {
+                            Image(crewMember.astronaut.id)
+                                .resizable()
+                                .frame(width: 104, height: 72)
+                                .clipShape(.capsule)
+                                .overlay(
+                                    Capsule()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                )
+                            
+                            VStack(alignment: .leading) {
+                                Text(crewMember.astronaut.name)
+                                    .foregroundStyle(.white)
+                                    .font(.headline)
+                                
+                                Text(crewMember.role)
+                                    .foregroundStyle(.white.opacity(0.5))
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+            }
+        }
+    }
+    
+    init(mission: Mission, astronauts: [String: Astronaut]) {
+        self.crew = mission.crew.map { member in
+            if let astronaut = astronauts[member.name] {
+                return CrewMember(role: member.role, astronaut: astronaut)
+            } else {
+                fatalError("Missing \(member.name)")
+            }
+        }
+    }
+}
+
+struct MissionView: View {
+    let mission: Mission
+    let astronauts: [String: Astronaut]
 
     var body: some View {
         ScrollView {
@@ -34,6 +81,11 @@ struct MissionView: View {
                     .containerRelativeFrame(.horizontal) { width, axis in
                         width * 0.6
                     }
+                
+                Text(mission.formattedLaunchDate)
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.5))
+                    .padding(.top)
                 
                 VStack(alignment: .leading) {
                     CustomDivider()
@@ -52,54 +104,14 @@ struct MissionView: View {
                 }
                 .padding(.horizontal)
                 
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(crew, id: \.role) { crewMember in
-                            NavigationLink {
-                                AstronautView(astronaut: crewMember.astronaut)
-                            } label: {
-                                HStack {
-                                    Image(crewMember.astronaut.id)
-                                        .resizable()
-                                        .frame(width: 104, height: 72)
-                                        .clipShape(.capsule)
-                                        .overlay(
-                                            Capsule()
-                                                .strokeBorder(.white, lineWidth: 1)
-                                        )
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(crewMember.astronaut.name)
-                                            .foregroundStyle(.white)
-                                            .font(.headline)
-                                        
-                                        Text(crewMember.role)
-                                            .foregroundStyle(.white.opacity(0.5))
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
-                    }
-                }
+                
+                AstronautScroller(mission: mission, astronauts: astronauts)
             }
             .padding(.bottom)
         }
         .navigationTitle(mission.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .background(.darkBackground)
-    }
-    
-    init(mission: Mission, astronauts: [String: Astronaut]) {
-        self.mission = mission
-        
-        self.crew = mission.crew.map { member in
-            if let astronaut = astronauts[member.name] {
-                return CrewMember(role: member.role, astronaut: astronaut)
-            } else {
-                fatalError("Missing \(member.name)")
-            }
-        }
     }
 }
 
