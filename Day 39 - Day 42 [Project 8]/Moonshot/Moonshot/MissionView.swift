@@ -51,9 +51,9 @@ struct AstronautScroller: View {
                         .padding(.horizontal)
                     }
                 }
-                .navigationDestination(for: CrewMember.self) { selection in
-                    AstronautView(astronaut: selection.astronaut)
-                }
+            }
+            .navigationDestination(for: CrewMember.self) { selection in
+                AstronautView(astronaut: selection.astronaut)
             }
         }
     }
