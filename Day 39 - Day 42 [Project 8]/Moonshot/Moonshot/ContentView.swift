@@ -24,10 +24,13 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 if showingAsGrid {
-                    MissionGrid(astronauts: astronauts, missions: missions)
+                    MissionGrid(missions: missions)
                 } else {
-                    MissionList(astronauts: astronauts, missions: missions)
+                    MissionList(missions: missions)
                 }
+            }
+            .navigationDestination(for: Mission.self) { selection in
+                MissionView(mission: selection, astronauts: astronauts)
             }
             .navigationTitle("Moonshot")
             .background(.darkBackground)

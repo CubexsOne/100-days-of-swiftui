@@ -17,7 +17,7 @@ struct CustomDivider: View {
 }
 
 struct AstronautScroller: View {
-    struct CrewMember {
+    struct CrewMember: Hashable {
         let role: String
         let astronaut: Astronaut
     }
@@ -28,9 +28,7 @@ struct AstronautScroller: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(crew, id: \.role) { crewMember in
-                    NavigationLink {
-                        AstronautView(astronaut: crewMember.astronaut)
-                    } label: {
+                    NavigationLink(value: crewMember) {
                         HStack {
                             Image(crewMember.astronaut.id)
                                 .resizable()
@@ -52,6 +50,9 @@ struct AstronautScroller: View {
                         }
                         .padding(.horizontal)
                     }
+                }
+                .navigationDestination(for: CrewMember.self) { selection in
+                    AstronautView(astronaut: selection.astronaut)
                 }
             }
         }

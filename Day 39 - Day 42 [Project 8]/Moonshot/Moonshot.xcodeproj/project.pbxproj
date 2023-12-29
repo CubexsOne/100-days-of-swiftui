@@ -80,11 +80,11 @@
 				D36F6B882B35BF440085B21E /* Astronaut.swift */,
 				D36F6B8A2B35BFB30085B21E /* Bundle-Decodable.swift */,
 				D36F6B8C2B35C1E80085B21E /* Mission.swift */,
+				3CB8993C2B3A29B300C3A9B9 /* MissionList.swift */,
 				D36F6B842B35BED10085B21E /* astronauts.json */,
 				D36F6B852B35BED10085B21E /* missions.json */,
 				D37BDD9D2B3470B200997483 /* Assets.xcassets */,
 				D37BDD9F2B3470B200997483 /* Preview Content */,
-				3CB8993C2B3A29B300C3A9B9 /* MissionList.swift */,
 			);
 			path = Moonshot;
 			sourceTree = "<group>";

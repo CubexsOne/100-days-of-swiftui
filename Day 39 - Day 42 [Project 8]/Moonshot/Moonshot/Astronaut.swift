@@ -5,9 +5,7 @@
 //  Created by Pascal Sauer on 22.12.23.
 //
 
-import Foundation
-
-struct Astronaut: Codable, Identifiable {
+struct Astronaut: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let description: String
