@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+
+let PLACE_HOLDER = "Insert Item Name"
 struct AddView: View {
     @Environment(\.dismiss) var dismiss
 
-    @State private var name = ""
+    @State private var name = PLACE_HOLDER
     @State private var type = "Personal"
     @State private var amount = 0.0
     
@@ -21,8 +23,6 @@ struct AddView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Name", text: $name)
-                
                 Picker("Type", selection: $type) {
                     ForEach(types, id: \.self) {
                         Text($0)
@@ -32,18 +32,19 @@ struct AddView: View {
                 TextField("Amount", value: $amount, format: .currency(code: localCurrency))
                     .keyboardType(.decimalPad)
             }
-            .navigationTitle("Add new expense")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle($name)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        if name.isEmpty {
+                        if name == PLACE_HOLDER {
                             showingAlert = true
                             return
                         }
                         let item = ExpenseItem(name: name, type: type, amount: amount)
                         expenses.items.append(item)
                         dismiss()
-                    }                    
+                    }
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
