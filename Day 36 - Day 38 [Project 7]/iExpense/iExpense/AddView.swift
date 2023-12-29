@@ -34,14 +34,21 @@ struct AddView: View {
             }
             .navigationTitle("Add new expense")
             .toolbar {
-                Button("Save") {
-                    if name.isEmpty {
-                        showingAlert = true
-                        return
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        if name.isEmpty {
+                            showingAlert = true
+                            return
+                        }
+                        let item = ExpenseItem(name: name, type: type, amount: amount)
+                        expenses.items.append(item)
+                        dismiss()
+                    }                    
+                }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
                     }
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
-                    dismiss()
                 }
             }
             .alert("Fehler beim speichern", isPresented: $showingAlert) {
@@ -49,6 +56,7 @@ struct AddView: View {
             } message: {
                 Text("Der Name wurde nicht gesetzt!")
             }
+            .navigationBarBackButtonHidden()
         }
     }
 }
