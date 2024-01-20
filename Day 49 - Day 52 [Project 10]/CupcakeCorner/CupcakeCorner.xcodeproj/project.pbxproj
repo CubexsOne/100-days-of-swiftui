@@ -13,6 +13,7 @@
 		3CAC7A4F2B58171A002792B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAC7A4E2B58171A002792B7 /* ContentView.swift */; };
 		3CAC7A512B58171B002792B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CAC7A502B58171B002792B7 /* Assets.xcassets */; };
 		3CAC7A542B58171B002792B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CAC7A532B58171B002792B7 /* Preview Assets.xcassets */; };
+		3CB83E232B5AB758006984B5 /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB83E222B5AB758006984B5 /* CheckoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		3CAC7A4E2B58171A002792B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3CAC7A502B58171B002792B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CAC7A532B58171B002792B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3CB83E222B5AB758006984B5 /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				3CAC7A4C2B58171A002792B7 /* CupcakeCornerApp.swift */,
 				3CAC7A4E2B58171A002792B7 /* ContentView.swift */,
 				3C92573D2B5996D30037B6AE /* AddressView.swift */,
+				3CB83E222B5AB758006984B5 /* CheckoutView.swift */,
 				3C92573B2B5994370037B6AE /* Order.swift */,
 				3CAC7A502B58171B002792B7 /* Assets.xcassets */,
 				3CAC7A522B58171B002792B7 /* Preview Content */,
@@ -145,6 +148,7 @@
 			files = (
 				3C92573C2B5994370037B6AE /* Order.swift in Sources */,
 				3C92573E2B5996D30037B6AE /* AddressView.swift in Sources */,
+				3CB83E232B5AB758006984B5 /* CheckoutView.swift in Sources */,
 				3CAC7A4F2B58171A002792B7 /* ContentView.swift in Sources */,
 				3CAC7A4D2B58171A002792B7 /* CupcakeCornerApp.swift in Sources */,
 			);
