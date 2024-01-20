@@ -15,19 +15,17 @@ extension String {
 
 @Observable
 class Order: Codable {
-    
     enum CodingKeys: String, CodingKey {
         case _type = "type"
         case _quantity = "quantity"
         case _specialRequestEnabled = "specialRequestEnabled"
         case _extraFrosting = "extraFrosting"
         case _addSprinkles = "addSprinkles"
-        case _name = "name"
-        case _streetAddress = "streetAddress"
-        case _city = "city"
-        case _zip = "zip"
+        case _deliveryAddress = "deliveryAddress"
     }
+
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
+    private let saveAddressPath = URL.documentsDirectory.appending(path: "Order.deliveryAddress")
     
     var type = 0
     var quantity = 3
@@ -43,17 +41,10 @@ class Order: Codable {
     var extraFrosting = false
     var addSprinkles = false
     
-    var name = ""
-    var streetAddress = ""
-    var city = ""
-    var zip = ""
-    
-    var hasValidAddress: Bool {
-        if name.isTrimmedEmpty() || streetAddress.isTrimmedEmpty() || city.isTrimmedEmpty() || zip.isTrimmedEmpty() {
-            return false
+    var deliveryAddress = DeliveryAddress() {
+        didSet {
+            saveAddress()
         }
-        
-        return true
     }
     
     var cost: Decimal {
@@ -70,5 +61,40 @@ class Order: Codable {
         }
         
         return cost
+    }
+    
+    init() {
+        if let data = try? Data(contentsOf: saveAddressPath) {
+            if let decoded = try? JSONDecoder().decode(DeliveryAddress.self, from: data) {
+                self.deliveryAddress = decoded
+                return
+            }
+        }
+        
+        deliveryAddress = DeliveryAddress()
+    }
+    
+    func saveAddress() {
+        do {
+            let data = try JSONEncoder().encode(deliveryAddress)
+            try data.write(to: saveAddressPath)
+        } catch {
+            print("Failed to save activity data")
+        }
+    }
+}
+
+struct DeliveryAddress: Codable {
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zip = ""
+    
+    var hasValidAddress: Bool {
+        if name.isTrimmedEmpty() || streetAddress.isTrimmedEmpty() || city.isTrimmedEmpty() || zip.isTrimmedEmpty() {
+            return false
+        }
+        
+        return true
     }
 }
