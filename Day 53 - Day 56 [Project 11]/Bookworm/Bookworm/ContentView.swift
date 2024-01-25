@@ -30,6 +30,7 @@ struct ContentView: View {
                             VStack(alignment: .leading) {
                                 Text(book.title)
                                     .font(.headline)
+                                    .foregroundColor(fontColorBasedOnRating(rating: book.rating))
                                 
                                 Text(book.author)
                                     .foregroundStyle(.secondary)
@@ -64,6 +65,10 @@ struct ContentView: View {
             let book = books[offset]
             modelContext.delete(book)
         }
+    }
+    
+    func fontColorBasedOnRating(rating: Int) -> Color {
+        rating == 1 ? Color.red : Color.black
     }
 }
 

@@ -5,6 +5,12 @@
 //  Created by Pascal Sauer on 23.01.24.
 //
 
+extension String {
+    func isTrimmedEmpty() -> Bool {
+        self.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+}
+
 import SwiftUI
 
 struct AddBookView: View {
@@ -18,6 +24,13 @@ struct AddBookView: View {
     @State private var review = ""
 
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
+    
+    var hasValidInput: Bool {
+        if title.isTrimmedEmpty() || author.isTrimmedEmpty() || review.isTrimmedEmpty() {
+            return false
+        }
+        return true
+    }
     
     var body: some View {
         NavigationStack {
@@ -40,12 +53,13 @@ struct AddBookView: View {
                 
                 Section {
                     Button("Save") {
-                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating)
+                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating, creationDate: .now)
                         
                         modelContext.insert(newBook)
                         dismiss()
                     }
                 }
+                .disabled(hasValidInput == false)
             }
             .navigationTitle("Add Book")
         }
