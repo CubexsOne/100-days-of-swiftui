@@ -11,12 +11,11 @@ import SwiftUI
 struct ListFilteredByType: View {
     @Environment(\.modelContext) var modelContext
     @Query var items: [ExpenseItem]
-    let type: String
 
     
     var body: some View {
-        if items.count > 0 {
-            Section(type) {
+        List {
+            Section {
                 ForEach(items) { item in
                     HStack {
                         VStack(alignment: .leading) {
@@ -36,15 +35,14 @@ struct ListFilteredByType: View {
                     }
                 }
                 .onDelete(perform: deleteItem)
-            }
+            }            
         }
     }
     
-    init(type: String) {
+    init(filterTypes: [String], sortOrder: [SortDescriptor<ExpenseItem>]) {
         _items = Query(filter: #Predicate<ExpenseItem> { item in
-            item.type.localizedStandardContains(type)
-        })
-        self.type = type
+            filterTypes.contains(item.type)
+        }, sort: sortOrder)
     }
     
     func deleteItem(at offsets: IndexSet) {
@@ -56,6 +54,6 @@ struct ListFilteredByType: View {
 }
 
 #Preview {
-    ListFilteredByType(type: "Personal")
+    ListFilteredByType(filterTypes: ["Personal"], sortOrder: [SortDescriptor(\.name)])
     .modelContainer(for: ExpenseItem.self)
 }
