@@ -5,20 +5,20 @@
 //  Created by Pascal Sauer on 19.12.23.
 //
 
+import SwiftData
 import SwiftUI
 
 
 let PLACE_HOLDER = "Insert Item Name"
 struct AddView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
 
     @State private var name = PLACE_HOLDER
     @State private var type = "Personal"
     @State private var amount = 0.0
     
     @State private var showingAlert = false
-    
-    var expenses: Expenses
     
     var body: some View {
         NavigationStack {
@@ -42,7 +42,7 @@ struct AddView: View {
                             return
                         }
                         let item = ExpenseItem(name: name, type: type, amount: amount)
-                        expenses.items.append(item)
+                        modelContext.insert(item)
                         dismiss()
                     }
                 }
@@ -63,5 +63,6 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(expenses: Expenses())
+    AddView()
+        .modelContainer(for: ExpenseItem.self)
 }
