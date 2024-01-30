@@ -26,6 +26,10 @@ class User: Codable {
     var tags: [String] = [String]()
     @Relationship(deleteRule: .cascade) var friends: [Friend]? = [Friend]()
     
+    var formattedRegistrationDate: String {
+        registered.formatted(date: .abbreviated, time: .omitted)
+    }
+    
     var unwrappedFriends: [Friend] {
         friends ?? []
     }

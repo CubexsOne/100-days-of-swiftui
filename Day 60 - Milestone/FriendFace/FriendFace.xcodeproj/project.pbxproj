@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C5D0DE02B699B0600B0A775 /* DetailViewTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5D0DDF2B699B0600B0A775 /* DetailViewTextBox.swift */; };
+		3CC548B32B6979A00031932A /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC548B22B6979A00031932A /* ListView.swift */; };
+		3CC548B52B697D2B0031932A /* UserIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC548B42B697D2B0031932A /* UserIcon.swift */; };
+		3CDD73C92B6987E80053B6EF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD73C82B6987E80053B6EF /* DetailView.swift */; };
 		3CE3BAF72B695F9D00F4FC23 /* FriendFaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3BAF62B695F9D00F4FC23 /* FriendFaceApp.swift */; };
 		3CE3BAF92B695F9D00F4FC23 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3BAF82B695F9D00F4FC23 /* ContentView.swift */; };
 		3CE3BAFB2B695F9E00F4FC23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CE3BAFA2B695F9E00F4FC23 /* Assets.xcassets */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C5D0DDF2B699B0600B0A775 /* DetailViewTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewTextBox.swift; sourceTree = "<group>"; };
+		3CC548B22B6979A00031932A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		3CC548B42B697D2B0031932A /* UserIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIcon.swift; sourceTree = "<group>"; };
+		3CDD73C82B6987E80053B6EF /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		3CE3BAF32B695F9D00F4FC23 /* FriendFace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CE3BAF62B695F9D00F4FC23 /* FriendFaceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendFaceApp.swift; sourceTree = "<group>"; };
 		3CE3BAF82B695F9D00F4FC23 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +65,10 @@
 			children = (
 				3CE3BAF62B695F9D00F4FC23 /* FriendFaceApp.swift */,
 				3CE3BAF82B695F9D00F4FC23 /* ContentView.swift */,
+				3CDD73C82B6987E80053B6EF /* DetailView.swift */,
+				3C5D0DDF2B699B0600B0A775 /* DetailViewTextBox.swift */,
+				3CC548B22B6979A00031932A /* ListView.swift */,
+				3CC548B42B697D2B0031932A /* UserIcon.swift */,
 				3CE3BB042B6960E900F4FC23 /* Friend.swift */,
 				3CE3BB062B69615900F4FC23 /* User.swift */,
 				3CE3BAFA2B695F9E00F4FC23 /* Assets.xcassets */,
@@ -144,8 +156,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE3BB072B69615900F4FC23 /* User.swift in Sources */,
+				3CC548B52B697D2B0031932A /* UserIcon.swift in Sources */,
 				3CE3BB052B6960E900F4FC23 /* Friend.swift in Sources */,
+				3CDD73C92B6987E80053B6EF /* DetailView.swift in Sources */,
+				3CC548B32B6979A00031932A /* ListView.swift in Sources */,
 				3CE3BAF92B695F9D00F4FC23 /* ContentView.swift in Sources */,
+				3C5D0DE02B699B0600B0A775 /* DetailViewTextBox.swift in Sources */,
 				3CE3BAF72B695F9D00F4FC23 /* FriendFaceApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

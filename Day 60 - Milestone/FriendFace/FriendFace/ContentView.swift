@@ -10,25 +10,48 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query var users: [User]
+    @State private var initialized = false
+    @State private var path = [UUID]()
+    @State private var sortOrder = [
+        SortDescriptor(\User.name, order: .forward),
+        SortDescriptor(\User.registered)
+    ]
 
     var body: some View {
-        NavigationStack {
-            List(users) { user in
-                VStack {
-                    Text("Name: \(user.name)")
-                    if user.unwrappedFriends.count > 0 {
-                        Text("Friend: \(user.friends?[0].name ?? "NotFound")")
+        NavigationStack(path: $path) {
+            ListView(sortOrder)
+            .onAppear(perform: {
+                Task {
+                    await retrieveUser()
+                }
+            })
+            .navigationTitle("FriendFace")
+            .navigationDestination(for: UUID.self) { value in
+                DetailView(id: value)
+            }
+            .toolbar {
+                Menu("Sort alphabetical", systemImage: "arrow.up.arrow.down") {
+                    Picker("Sort alphabetical", selection: $sortOrder) {
+                        Text("ASC")
+                            .tag([
+                                SortDescriptor(\User.name, order: .forward),
+                                SortDescriptor(\User.registered)
+                            ])
+                        
+                        Text("DESC")
+                            .tag([
+                                SortDescriptor(\User.name, order: .reverse),
+                                SortDescriptor(\User.registered)
+                            ])
                     }
                 }
             }
-            .task {
-                await retrieveUser()
-            }
         }
+        .accentColor(.black)
     }
     
     func retrieveUser() async {
+        if (initialized) { return }
         try? modelContext.delete(model: User.self)
         
         do {
@@ -38,18 +61,19 @@ struct ContentView: View {
             decoder.dateDecodingStrategy = .iso8601
             let decodedResponse = try decoder.decode([User].self, from: data)
             
+            modelContext.autosaveEnabled = false
             try modelContext.transaction {
                 decodedResponse.forEach { user in
                     modelContext.insert(user)
                 }
                 
-                modelContext.autosaveEnabled = false
                 do {
                     try modelContext.save()
                 } catch {
                     print("Error during saving users: \(error.localizedDescription)")
                 }
                 modelContext.autosaveEnabled = true
+                initialized = true
             }
             
         } catch {
