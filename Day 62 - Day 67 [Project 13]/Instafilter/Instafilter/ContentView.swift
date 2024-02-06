@@ -93,6 +93,9 @@ struct ContentView: View {
                 Button("Sepia Tone") { setFilter(CIFilter.sepiaTone()) }
                 Button("Unsharp Mask") { setFilter(CIFilter.unsharpMask()) }
                 Button("Vignette") { setFilter(CIFilter.vignette()) }
+                Button("Bloom") { setFilter(CIFilter.bloom()) }
+                Button("Invert") { setFilter(CIFilter.colorInvert()) }
+                Button("Depth of field") { setFilter(CIFilter.depthOfField()) }
                 Button("Cancel", role: .cancel) { }
             }
         }
@@ -140,7 +143,7 @@ struct ContentView: View {
         loadImage()
         
         filterCount += 1
-        if filterCount >= 20 {
+        if filterCount >= 200 {
             requestReview()
         }
     }
