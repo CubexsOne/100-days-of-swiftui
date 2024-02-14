@@ -39,7 +39,6 @@ struct ContentView: View {
                 if let coordinate = proxy.convert(position, from: .local) {
                     let newLocation = Location(id: UUID(), name: "New location", description: "", latitude: coordinate.latitude, longitude: coordinate.longitude)
                     locations.append(newLocation)
-                    print(coordinate)
                 }
             }
             .sheet(item: $selectedPlace) { place in
