@@ -21,6 +21,8 @@ extension EditView {
         var loadingState: LoadingState
         var pages = [Page]()
         
+        var showConfirmation = false
+        
         init(location: Location) {
             self.location = location
             self.loadingState = .loading

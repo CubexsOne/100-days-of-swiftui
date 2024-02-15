@@ -18,8 +18,8 @@ struct ContentView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-//        if true {
-        if viewModel.isUnlocked {
+        if true {
+//        if viewModel.isUnlocked {
             MapReader { proxy in
                 Map(initialPosition: startPosition) {
                     ForEach(viewModel.locations) { location in
@@ -43,7 +43,7 @@ struct ContentView: View {
                     }
                 }
                 .sheet(item: $viewModel.selectedPlace) { place in
-                    EditView(location: place, onSave: viewModel.update)
+                    EditView(location: place, onSave: viewModel.update, onDelete: viewModel.delete)
                 }
             }
             ScrollView {
@@ -57,6 +57,27 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
                 
                 Divider()
+                
+                ForEach(viewModel.locations) { location in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(location.name)
+                                .font(.headline)
+                            Text(location.description)
+                                .italic()
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 64)
+                    .background(Color(red: 0.96, green: 0.96, blue: 0.96))
+                    .clipShape(.rect(cornerRadius: 8))
+                    .padding(.horizontal)
+                    .onTapGesture {
+                        viewModel.selectedPlace = location
+                    }
+                }
             }
             .scrollBounceBehavior(.basedOnSize)
         } else {

@@ -10,6 +10,7 @@ import SwiftUI
 struct EditView: View {
     @Environment(\.dismiss) var dismiss
     var onSave: (Location) -> Void
+    var onDelete: (Location) -> Void
     
     @State private var viewModel: ViewModel
     
@@ -45,28 +46,47 @@ struct EditView: View {
             }
             .navigationTitle("Place details")
             .toolbar {
-                Button("Save") {
-                    var newLocation = viewModel.location
-                    newLocation.id = UUID()
-                    newLocation.name = viewModel.name
-                    newLocation.description = viewModel.description
-
-                    onSave(newLocation)
-                    dismiss()
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Save") {
+                        var newLocation = viewModel.location
+                        newLocation.id = UUID()
+                        newLocation.name = viewModel.name
+                        newLocation.description = viewModel.description
+                        
+                        onSave(newLocation)
+                        dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .destructiveAction) {
+                    Button {
+                        viewModel.showConfirmation = true
+                    } label: {
+                        Image(systemName: "trash")
+                            .foregroundStyle(.red)
+                    }
                 }
             }
             .task {
                 await viewModel.fetchNearbyPlaces()
             }
+            .alert("Delete this Location?", isPresented: $viewModel.showConfirmation) {
+                Button("Delete", role: .destructive) {
+                    onDelete(viewModel.location)
+                    dismiss()
+                }
+                Button("Cancel", role: .cancel) { }
+            }
         }
     }
     
-    init(location: Location, onSave: @escaping (Location) -> Void) {
+    init(location: Location, onSave: @escaping (Location) -> Void, onDelete: @escaping (Location) -> Void) {
         self.onSave = onSave
+        self.onDelete = onDelete
         _viewModel = State(initialValue: ViewModel(location: location))
     }
 }
 
 #Preview {
-    EditView(location: Location.example) { _ in }
+    EditView(location: Location.example) { _ in } onDelete: { _ in }
 }

@@ -52,8 +52,15 @@ extension ContentView {
 
             if let index = locations.firstIndex(of: selectedPlace) {
                 locations[index] = location
+                save()
             }
-            save()
+        }
+    
+        func delete(location: Location) {
+            if let index = locations.firstIndex(of: location) {
+                locations.remove(at: index)
+                save()
+            }
         }
         
         func authenticate() {
