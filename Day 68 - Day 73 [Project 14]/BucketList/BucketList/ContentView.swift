@@ -58,6 +58,7 @@ struct ContentView: View {
                 
                 Divider()
             }
+            .scrollBounceBehavior(.basedOnSize)
         } else {
             Button("Unlock Places", action: viewModel.authenticate)
                 .padding()
