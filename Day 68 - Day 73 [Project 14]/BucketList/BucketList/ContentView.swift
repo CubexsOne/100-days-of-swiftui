@@ -18,7 +18,8 @@ struct ContentView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-        if viewModel.isUnlocked {
+        if true {
+            //            if viewModel.isUnlocked {
             MapReader { proxy in
                 Map(initialPosition: startPosition) {
                     ForEach(viewModel.locations) { location in
@@ -35,6 +36,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .mapStyle(viewModel.isHybrid ? .hybrid : .standard)
                 .onTapGesture { position in
                     if let coordinate = proxy.convert(position, from: .local) {
                         viewModel.addLocation(at: coordinate)
@@ -43,6 +45,18 @@ struct ContentView: View {
                 .sheet(item: $viewModel.selectedPlace) { place in
                     EditView(location: place, onSave: viewModel.update)
                 }
+            }
+            ScrollView {
+                HStack() {
+                    Spacer()
+                    Menu("Settings") {
+                        Toggle("Hybrid", isOn: $viewModel.isHybrid)
+                    }
+                }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                
+                Divider()
             }
         } else {
             Button("Unlock Places", action: viewModel.authenticate)
