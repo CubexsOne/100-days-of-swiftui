@@ -18,6 +18,9 @@ extension ContentView {
         var isUnlocked = false
         var isHybrid = false
         
+        var showAlert = false
+        private(set) var errorMessage = ""
+        
         let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
         
         init() {
@@ -64,7 +67,8 @@ extension ContentView {
                     if success {
                         self.isUnlocked = true
                     } else {
-                        // error
+                        self.errorMessage = "Error during authentication."
+                        self.showAlert = true
                     }
                 }
             } else {

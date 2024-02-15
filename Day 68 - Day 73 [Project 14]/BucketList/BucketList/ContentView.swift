@@ -18,8 +18,8 @@ struct ContentView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
-        if true {
-            //            if viewModel.isUnlocked {
+//        if true {
+        if viewModel.isUnlocked {
             MapReader { proxy in
                 Map(initialPosition: startPosition) {
                     ForEach(viewModel.locations) { location in
@@ -65,6 +65,11 @@ struct ContentView: View {
                 .background(.blue)
                 .foregroundStyle(.white)
                 .clipShape(.capsule)
+                .alert("Error", isPresented: $viewModel.showAlert) {
+                    Button("Ok") { }
+                } message: {
+                    Text(viewModel.errorMessage)
+                }
         }
     }
 }
