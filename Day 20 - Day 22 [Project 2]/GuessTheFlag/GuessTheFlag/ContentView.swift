@@ -34,6 +34,20 @@ struct ContentView: View {
     @State private var answered = false
     @State private var tappedAnswer = -1
     
+    let labels = [
+        "Estonia": "Flag with three horizontal stripes. Top stripe blue, middle stripe black and bottom stripe white.",
+        "France": "Flag with three vertical stripes. Left stripe blue, middle stripe white and right stripe red.",
+        "Germany": "Flag with three horizontal stripes. Top stripe black, middle stripe red and bottom stripe gold.",
+        "Ireland": "Flag with three vertical stripes. left stripe green, middle stripe white and right stripe orange.",
+        "Italy": "Flag with three vertical stripes. left stripe green, middle stripe white and right stripe red.",
+        "Nigeria": "Flag with three vertical stripes. left stripe green, middle stripe white and right stripe green.",
+        "Poland": "Flag with two horizontal stripes. top stripe white and bottom stripe red",
+        "Spain": "Flag with three horizontal stripes. Top thin stripe red, middle thick stripe gold with crest on the left and bottom thin stripe red.",
+        "UK": "Flag with overlapping red and white crosses, both straigh and diagonally, on a blue background.",
+        "Ukraine": "Flag with two horizontal stripes. Top stripe blue and bottom stripe yellow.",
+        "US": "Flag with many red and white stripes, with stars on a blue background in the top-left corner."
+    ]
+    
     var body: some View {
         ZStack {
             RadialGradient(stops: [
@@ -72,7 +86,7 @@ struct ContentView: View {
                         .opacity(answered && number != tappedAnswer ? 0.25 : 1)
                         .scaleEffect(answered && number != tappedAnswer ? 0.25 : 1)
                         .animation(.linear, value: answered)
-                        
+                        .accessibilityLabel(labels[countries[number]] ?? "Unknown flag")
                     }
                 }
                 .frame(maxWidth: .infinity)
