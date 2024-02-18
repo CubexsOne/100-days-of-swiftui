@@ -33,6 +33,9 @@ struct ListFilteredByType: View {
                         }
                         
                     }
+                    .accessibilityElement()
+                    .accessibilityLabel("\(item.name) for \(item.amount) €")
+                    .accessibilityHint(item.type)
                 }
                 .onDelete(perform: deleteItem)
             }            
