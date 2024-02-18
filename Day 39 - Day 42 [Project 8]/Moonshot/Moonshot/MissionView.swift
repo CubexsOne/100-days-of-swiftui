@@ -30,7 +30,7 @@ struct AstronautScroller: View {
                 ForEach(crew, id: \.role) { crewMember in
                     NavigationLink(value: crewMember) {
                         HStack {
-                            Image(crewMember.astronaut.id)
+                            Image(decorative: crewMember.astronaut.id)
                                 .resizable()
                                 .frame(width: 104, height: 72)
                                 .clipShape(.capsule)
@@ -49,6 +49,9 @@ struct AstronautScroller: View {
                             }
                         }
                         .padding(.horizontal)
+                        .accessibilityElement()
+                        .accessibilityLabel(crewMember.astronaut.name)
+                        .accessibilityHint(crewMember.role)
                     }
                 }
             }
@@ -76,17 +79,20 @@ struct MissionView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Image(mission.image)
+                Image(decorative: mission.image)
                     .resizable()
                     .scaledToFit()
                     .containerRelativeFrame(.horizontal) { width, axis in
                         width * 0.6
                     }
+                    .accessibilityLabel("Image of the crest for mission \(mission.displayName)")
                 
                 Text(mission.formattedLaunchDate)
                     .font(.caption)
                     .foregroundStyle(.white.opacity(0.5))
                     .padding(.top)
+                    .accessibilityLabel("Launched on \(mission.formattedLaunchDate)")
+                
                 
                 VStack(alignment: .leading) {
                     CustomDivider()

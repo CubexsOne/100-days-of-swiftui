@@ -15,7 +15,7 @@ struct MissionList: View {
             ForEach(missions) { mission in
                 NavigationLink(value: mission) {
                     VStack {
-                        Image(mission.image)
+                        Image(decorative: mission.image)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50, height: 50)
@@ -28,6 +28,8 @@ struct MissionList: View {
                             .font(.caption)
                             .foregroundStyle(.white.opacity(0.5))
                     }
+                    .accessibilityElement()
+                    .accessibilityLabel("\(mission.displayName) launched on \(mission.formattedLaunchDate)")
                 }
             }
         }

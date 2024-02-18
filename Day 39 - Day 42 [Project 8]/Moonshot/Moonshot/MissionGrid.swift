@@ -20,7 +20,7 @@ struct MissionGrid: View {
                 ForEach(missions) { mission in
                     NavigationLink(value: mission) {
                         VStack {
-                            Image(mission.image)
+                            Image(decorative: mission.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
@@ -38,6 +38,8 @@ struct MissionGrid: View {
                             .padding(.vertical)
                             .frame(maxWidth: .infinity)
                             .background(.lightBackground)
+                            .accessibilityElement()
+                            .accessibilityLabel("\(mission.displayName) launched on \(mission.formattedLaunchDate)")
                         }
                         .clipShape(.rect(cornerRadius: 10))
                         .overlay(
