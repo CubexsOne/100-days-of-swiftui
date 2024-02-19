@@ -13,6 +13,7 @@
 		3C6F493D2B83BDAC007F6E9B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C6F493C2B83BDAC007F6E9B /* Preview Assets.xcassets */; };
 		3C6F49462B83E129007F6E9B /* Buddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6F49452B83E129007F6E9B /* Buddy.swift */; };
 		3C6F49482B83E74C007F6E9B /* BuddyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */; };
+		3CFC72A62B83FC64002B896A /* BuddyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFC72A52B83FC64002B896A /* BuddyListItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		3C6F493C2B83BDAC007F6E9B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3C6F49452B83E129007F6E9B /* Buddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buddy.swift; sourceTree = "<group>"; };
 		3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAddView.swift; sourceTree = "<group>"; };
+		3CFC72A52B83FC64002B896A /* BuddyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				3C6F49352B83BDAB007F6E9B /* ConBuddyApp.swift */,
 				3C6F49372B83BDAB007F6E9B /* ContentView.swift */,
+				3CFC72A52B83FC64002B896A /* BuddyListItem.swift */,
 				3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */,
 				3C6F49452B83E129007F6E9B /* Buddy.swift */,
 				3C6F49392B83BDAC007F6E9B /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 			files = (
 				3C6F49382B83BDAB007F6E9B /* ContentView.swift in Sources */,
 				3C6F49482B83E74C007F6E9B /* BuddyAddView.swift in Sources */,
+				3CFC72A62B83FC64002B896A /* BuddyListItem.swift in Sources */,
 				3C6F49462B83E129007F6E9B /* Buddy.swift in Sources */,
 				3C6F49362B83BDAB007F6E9B /* ConBuddyApp.swift in Sources */,
 			);

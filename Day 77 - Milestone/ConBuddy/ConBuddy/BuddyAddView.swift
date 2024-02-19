@@ -39,6 +39,7 @@ struct BuddyAddView: View {
                     }
                 }
                 .buttonStyle(.plain)
+                .onChange(of: selectedItem, loadImage)
                 
                 Section("Personal Data") {
                     TextField("First name", text: $firstName)
@@ -50,8 +51,9 @@ struct BuddyAddView: View {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Save") {
                         guard let imageData else { return }
-                        let newBuddy = Buddy(id: UUID(), firstName: firstName, lastName: lastName, image: imageData)
+                        let newBuddy = Buddy(firstName: firstName, lastName: lastName, image: imageData)
                         modelContext.insert(newBuddy)
+                        dismiss()
                     }.disabled(validBuddy == false)
                 }
                 
@@ -61,8 +63,18 @@ struct BuddyAddView: View {
             }
         }
     }
+    
+    func loadImage() {
+        Task {
+            guard let imageData = try await selectedItem?.loadTransferable(type: Data.self) else { return }
+            self.imageData = imageData
+            guard let uiImage = UIImage(data: imageData) else { return }
+            self.selectedImage = Image(uiImage: uiImage)
+        }
+    }
 }
 
 #Preview {
     BuddyAddView()
+        .modelContainer(for: Buddy.self)
 }
