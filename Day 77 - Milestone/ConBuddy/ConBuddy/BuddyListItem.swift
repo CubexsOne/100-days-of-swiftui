@@ -23,8 +23,3 @@ struct BuddyListItem: View {
         }
     }
 }
-
-//#Preview {
-//    BuddyListItem(buddy: Buddy(firstName: "", lastName: "", image: Data()))
-//        .modelContainer(for: Buddy.self)
-//}

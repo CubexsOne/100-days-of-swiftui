@@ -40,14 +40,7 @@ struct ContentView: View {
                 BuddyAddView()
             }
             .navigationDestination(for: Buddy.self) { buddy in
-                VStack {
-                    buddy.potrait
-                        .resizable()
-                        .scaledToFit()
-                    Text("\(buddy.lastName), \(buddy.firstName)")
-                    Spacer()
-                }
-                .navigationBarTitleDisplayMode(.inline)
+                BuddyDetailView(buddy: buddy)
             }
         }
     }
