@@ -15,6 +15,8 @@
 		3C6F49462B83E129007F6E9B /* Buddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6F49452B83E129007F6E9B /* Buddy.swift */; };
 		3C6F49482B83E74C007F6E9B /* BuddyAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */; };
 		3C86207E2B862F6C0042B808 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C86207D2B862F6C0042B808 /* LocationFetcher.swift */; };
+		3C8620802B8647A20042B808 /* BuddyDetailShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C86207F2B8647A20042B808 /* BuddyDetailShowView.swift */; };
+		3C8620822B86490B0042B808 /* BuddyDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8620812B86490B0042B808 /* BuddyDetailEditView.swift */; };
 		3CFC72A62B83FC64002B896A /* BuddyListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFC72A52B83FC64002B896A /* BuddyListItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +30,8 @@
 		3C6F49452B83E129007F6E9B /* Buddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buddy.swift; sourceTree = "<group>"; };
 		3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAddView.swift; sourceTree = "<group>"; };
 		3C86207D2B862F6C0042B808 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
+		3C86207F2B8647A20042B808 /* BuddyDetailShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyDetailShowView.swift; sourceTree = "<group>"; };
+		3C8620812B86490B0042B808 /* BuddyDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyDetailEditView.swift; sourceTree = "<group>"; };
 		3CFC72A52B83FC64002B896A /* BuddyListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,9 +69,11 @@
 				3C6F49372B83BDAB007F6E9B /* ContentView.swift */,
 				3C86207D2B862F6C0042B808 /* LocationFetcher.swift */,
 				3C2B661E2B84FE2C003987D3 /* BuddyDetailView.swift */,
+				3C8620812B86490B0042B808 /* BuddyDetailEditView.swift */,
 				3CFC72A52B83FC64002B896A /* BuddyListItem.swift */,
 				3C6F49472B83E74C007F6E9B /* BuddyAddView.swift */,
 				3C6F49452B83E129007F6E9B /* Buddy.swift */,
+				3C86207F2B8647A20042B808 /* BuddyDetailShowView.swift */,
 				3C6F49392B83BDAC007F6E9B /* Assets.xcassets */,
 				3C6F493B2B83BDAC007F6E9B /* Preview Content */,
 			);
@@ -155,7 +161,9 @@
 				3C6F49382B83BDAB007F6E9B /* ContentView.swift in Sources */,
 				3C6F49482B83E74C007F6E9B /* BuddyAddView.swift in Sources */,
 				3C2B661F2B84FE2C003987D3 /* BuddyDetailView.swift in Sources */,
+				3C8620802B8647A20042B808 /* BuddyDetailShowView.swift in Sources */,
 				3C86207E2B862F6C0042B808 /* LocationFetcher.swift in Sources */,
+				3C8620822B86490B0042B808 /* BuddyDetailEditView.swift in Sources */,
 				3CFC72A62B83FC64002B896A /* BuddyListItem.swift in Sources */,
 				3C6F49462B83E129007F6E9B /* Buddy.swift in Sources */,
 				3C6F49362B83BDAB007F6E9B /* ConBuddyApp.swift in Sources */,

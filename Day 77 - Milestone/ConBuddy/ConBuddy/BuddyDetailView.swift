@@ -17,42 +17,14 @@ struct BuddyDetailView: View {
     @State private var isEditing = false
     
     var body: some View {
-        buddy.potrait
-            .resizable()
-            .scaledToFit()
-        Form {
-            Section("Personal Data") {
-                LabeledContent(buddy.firstName) {
-                    Text("Firstname")
-                }
-                
-                LabeledContent(buddy.lastName) {
-                    Text("Lastname")
-                }
-            }
-            
-            Section("Creation Location") {
-                if let longitude = buddy.longitude {
-                    if let latitude = buddy.latitude {
-                        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                        let startPosition = MapCameraPosition.region(
-                            MKCoordinateRegion(
-                                center: coordinate,
-                                span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-                        )
-                        Map(initialPosition: startPosition) {
-                            Marker("Met here", coordinate: coordinate)
-                        }
-                        .mapStyle(.standard)
-                        .frame(maxWidth: .infinity, minHeight: 200)
-                    }
-                } else {
-                    Text("No location found")
-                }
+        VStack {
+            if isEditing {
+                BuddyDetailEditView(buddy: buddy)
+            } else {
+                BuddyDetailShowView(buddy: buddy)                
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .scrollBounceBehavior(.basedOnSize)
         .alert("Delete buddy?", isPresented: $showDeleteAlert) {
             Button("Cancel", role: .cancel) { }
             Button("Delete", role: .destructive) {
