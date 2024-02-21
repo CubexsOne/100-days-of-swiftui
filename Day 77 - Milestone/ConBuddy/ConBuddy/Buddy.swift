@@ -18,6 +18,7 @@ class Buddy {
     var latitude: Double?
     var longitude: Double?
     var locationName: String
+    @Relationship(deleteRule: .cascade) var socialMedias: [SocialMedia]? = [SocialMedia]()
     
     var potrait: Image {
         if let uiImage = UIImage(data: image) {
