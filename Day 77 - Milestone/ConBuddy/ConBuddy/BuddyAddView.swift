@@ -18,6 +18,9 @@ struct BuddyAddView: View {
     @State private var firstName: String = "FirstName"
     @State private var lastName = "LastName"
     
+    let locationFetcher = LocationFetcher()
+    
+    
     var validBuddy: Bool {
         firstName.isEmpty == false && lastName.isEmpty == false && imageData != nil
     }
@@ -52,6 +55,11 @@ struct BuddyAddView: View {
                     Button("Save") {
                         guard let imageData else { return }
                         let newBuddy = Buddy(firstName: firstName, lastName: lastName, image: imageData)
+                        
+                        if let location = locationFetcher.lastKnownLocation {
+                            newBuddy.latitude = location.latitude
+                            newBuddy.longitude = location.longitude
+                        }
                         modelContext.insert(newBuddy)
                         dismiss()
                     }.disabled(validBuddy == false)
@@ -60,6 +68,9 @@ struct BuddyAddView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
+            }
+            .onAppear {
+                locationFetcher.start()
             }
         }
     }

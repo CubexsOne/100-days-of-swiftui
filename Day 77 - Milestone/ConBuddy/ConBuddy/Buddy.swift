@@ -15,6 +15,8 @@ class Buddy {
     var firstName: String
     var lastName: String
     @Attribute(.externalStorage) var image: Data
+    var latitude: Double?
+    var longitude: Double?
     
     var potrait: Image {
         if let uiImage = UIImage(data: image) {
@@ -23,9 +25,11 @@ class Buddy {
         return Image(systemName: "person.slash.fill")
     }
     
-    init(firstName: String, lastName: String, image: Data) {
+    init(firstName: String, lastName: String, image: Data, creationLocation: CLLocationCoordinate2D? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.image = image
+        self.latitude = creationLocation?.latitude
+        self.longitude = creationLocation?.longitude
     }
 }
