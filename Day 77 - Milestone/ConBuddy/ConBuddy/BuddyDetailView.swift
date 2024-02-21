@@ -16,8 +16,13 @@ struct BuddyDetailView: View {
             .scaledToFit()
         Form {
             Section("Personal Data") {
-                Text("First name")
-                Text("Last name")
+                LabeledContent(buddy.firstName) {
+                    Text("Firstname")
+                }
+                
+                LabeledContent(buddy.lastName) {
+                    Text("Lastname")
+                }
             }
             
             Section("Creation Location") {
