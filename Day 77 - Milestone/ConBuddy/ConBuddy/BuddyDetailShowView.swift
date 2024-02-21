@@ -24,6 +24,17 @@ struct BuddyDetailShowView: View {
                 .background(.secondary)
         }
         Form {
+            Section("Social Media") {
+                if let socialMedias = buddy.socialMedias {
+                    ForEach(socialMedias) { socialMedia in
+                        HStack {
+                            SocialMedia.getImageBy(category: socialMedia.type)
+                            Divider()
+                            Text(socialMedia.value)
+                        }
+                    }
+                }
+            }
             Section("Location") {
                 if let longitude = buddy.longitude {
                     if let latitude = buddy.latitude {
