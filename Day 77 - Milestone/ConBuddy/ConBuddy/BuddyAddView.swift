@@ -18,6 +18,8 @@ struct BuddyAddView: View {
     @State private var firstName: String = "FirstName"
     @State private var lastName = "LastName"
     
+    @State private var socialMedias = [(type: String, value: String)]()
+    
     let locationFetcher = LocationFetcher()
     
     
@@ -48,6 +50,26 @@ struct BuddyAddView: View {
                     TextField("First name", text: $firstName)
                     TextField("Last name", text: $lastName)
                 }
+                
+                Section("Social Media") {
+                    ForEach(socialMedias.indices, id: \.self) { index in
+                        HStack {
+                            Picker("Chose social media icon", selection: $socialMedias[index].type) {
+                                ForEach(SocialMedia.categories, id: \.self) { category in
+                                    SocialMedia.getImageBy(category: category)
+                                        .tag(category)
+                                }
+                            }
+                            .labelsHidden()
+                            Divider()
+                            TextField("Value", text: $socialMedias[index].value)
+                        }
+                    }
+                    .onDelete(perform: deleteSocialMedia)
+                    Button("Add social media", systemImage: "plus") {
+                        socialMedias.append(("none", ""))
+                    }
+                }
             }
             .navigationTitle("Add new buddy")
             .toolbar {
@@ -61,6 +83,12 @@ struct BuddyAddView: View {
                             newBuddy.longitude = location.longitude
                         }
                         modelContext.insert(newBuddy)
+                        
+                        for (type, value) in socialMedias {
+                            let newSocialMedia = SocialMedia(type: type, value: value)
+                            newBuddy.socialMedias?.append(newSocialMedia)
+                        }
+
                         dismiss()
                     }.disabled(validBuddy == false)
                 }
@@ -81,6 +109,12 @@ struct BuddyAddView: View {
             self.imageData = imageData
             guard let uiImage = UIImage(data: imageData) else { return }
             self.selectedImage = Image(uiImage: uiImage)
+        }
+    }
+    
+    func deleteSocialMedia(offsets: IndexSet) {
+        for index in offsets {
+            socialMedias.remove(at: index)
         }
     }
 }

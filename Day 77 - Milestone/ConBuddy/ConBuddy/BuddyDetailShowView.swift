@@ -29,6 +29,7 @@ struct BuddyDetailShowView: View {
                     ForEach(socialMedias) { socialMedia in
                         HStack {
                             SocialMedia.getImageBy(category: socialMedia.type)
+                                .frame(width: 22, height: 22)
                             Divider()
                             Text(socialMedia.value)
                         }

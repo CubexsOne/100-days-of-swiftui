@@ -10,7 +10,8 @@ import SwiftUI
 
 struct BuddyDetailEditView: View {
     @State var buddy: Buddy
-
+    @State var socialMedias = [SocialMedia]()
+    
     var body: some View {
         buddy.potrait
             .resizable()
@@ -20,6 +21,28 @@ struct BuddyDetailEditView: View {
                 TextField("Firstname", text: $buddy.firstName)
                 TextField("Lastname", text: $buddy.lastName)
             }
+            
+            Section("Social Media") {
+                ForEach(socialMedias.indices, id: \.self) { index in
+                    HStack {
+                        Picker("Chose social media icon", selection: $socialMedias[index].type) {
+                            ForEach(SocialMedia.categories, id: \.self) { category in
+                                SocialMedia.getImageBy(category: category)
+                                    .tag(category)
+                            }
+                        }
+                        .labelsHidden()
+                        
+                        Divider()
+                        TextField("Value", text: $socialMedias[index].value)
+                    }
+                }
+                .onDelete(perform: deleteSocialMedia)
+                Button("Add social media", systemImage: "plus") {
+                    socialMedias.append(SocialMedia(type: "none", value: ""))
+                }
+            }
+            .onChange(of: socialMedias) { buddy.socialMedias = socialMedias }
             
             Section("Location") {
                 if let longitude = buddy.longitude {
@@ -51,5 +74,18 @@ struct BuddyDetailEditView: View {
             }
         }
         .scrollBounceBehavior(.basedOnSize)
+    }
+    
+    init(buddy: Buddy) {
+        self.buddy = buddy
+        if let socialMedias = buddy.socialMedias {
+            _socialMedias = State(initialValue: socialMedias)
+        }
+    }
+    
+    func deleteSocialMedia(offsets: IndexSet) {
+        for index in offsets {
+            socialMedias.remove(at: index)
+        }
     }
 }

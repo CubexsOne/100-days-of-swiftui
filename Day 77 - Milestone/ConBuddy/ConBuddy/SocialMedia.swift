@@ -16,6 +16,7 @@ class SocialMedia {
         "email",
         "facebook",
         "twitter",
+        "none"
     ]
     
     var type: String
@@ -36,19 +37,24 @@ class SocialMedia {
         switch category {
         case "discord":
             return Image("discord")
-                .foregroundStyle(Color(red: 88, green: 101, blue: 242))
+                .resizable()
+                .scaledToFit()
         case "email":
             return Image("email")
-                .foregroundStyle(.black)
+                .resizable()
+                .scaledToFit()
         case "facebook":
             return Image("facebook")
-                .foregroundStyle(Color(red: 66, green: 103, blue: 178))
+                .resizable()
+                .scaledToFit()
         case "twitter":
             return Image("twitter")
-                .foregroundStyle(Color(red: 29, green: 161, blue: 242))
+                .resizable()
+                .scaledToFit()
         default:
             return Image(systemName: "xmark.circle")
-                .foregroundStyle(.black)
+                .resizable()
+                .scaledToFit()
         }
     }
 }
