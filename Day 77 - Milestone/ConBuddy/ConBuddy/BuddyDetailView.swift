@@ -6,10 +6,16 @@
 //
 
 import MapKit
+import SwiftData
 import SwiftUI
 
 struct BuddyDetailView: View {
     let buddy: Buddy
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
+    @State private var showDeleteAlert = false
+    @State private var isEditing = false
+    
     var body: some View {
         buddy.potrait
             .resizable()
@@ -47,5 +53,25 @@ struct BuddyDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize)
+        .alert("Delete buddy?", isPresented: $showDeleteAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Delete", role: .destructive) {
+                modelContext.delete(buddy)
+                dismiss()
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .destructiveAction) {
+                Button("Delete buddy", systemImage: "trash") {
+                    showDeleteAlert = true
+                }
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                Button("\( isEditing ? "Done" : "Edit")") {
+                    isEditing.toggle()
+                }
+            }
+        }
     }
 }
