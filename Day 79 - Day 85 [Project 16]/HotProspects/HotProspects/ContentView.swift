@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab = "One"
-
+    @State private var backgroundColor = Color.red
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            Button("Show Tab 2") {
-                selectedTab = "Two"
-            }
-            .tabItem {
-                Label("One", systemImage: "star")
-            }
-            .tag("One")
-            Text("Tab 2")
-                .tabItem {
-                    Label("Two", systemImage: "circle")
+        VStack {
+            Text("Hello, world!")
+                .padding()
+                .background(backgroundColor)
+            
+            Text("Change Color")
+                .padding()
+                .contextMenu {
+                    Button("Red", systemImage: "checkmark.circle.fill") {
+                        backgroundColor = .red
+                    }
+                    .foregroundStyle(.red)
+                    
+                    Button("Green") {
+                        backgroundColor = .green
+                    }
+                    
+                    Button("Blue") {
+                        backgroundColor = .blue
+                    }
                 }
-                .tag("Two")
         }
     }
 }
