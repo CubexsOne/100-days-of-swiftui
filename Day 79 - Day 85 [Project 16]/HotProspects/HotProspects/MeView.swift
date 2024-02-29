@@ -14,6 +14,10 @@ struct MeView: View {
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
+    
+    var QRImage: Image {
+        Image(uiImage: generateQRCode(from: "\(name)\n\(emailAddress)"))
+    }
 
     var body: some View {
         NavigationStack {
@@ -26,11 +30,14 @@ struct MeView: View {
                     .textContentType(.emailAddress)
                     .font(.title)
                 
-                Image(uiImage: generateQRCode(from: "\(name)\n\(emailAddress)"))
+                QRImage
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height: 200)
+                    .contextMenu {
+                        ShareLink(item: QRImage, preview: SharePreview("My QR Code", image: QRImage))
+                    }
             }
             .navigationTitle("Your code")
         }

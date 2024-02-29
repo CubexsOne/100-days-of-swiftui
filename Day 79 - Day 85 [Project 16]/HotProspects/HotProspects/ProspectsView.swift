@@ -75,7 +75,7 @@ struct ProspectsView: View {
                 
                 if selectedProspects.isEmpty == false {
                     ToolbarItem(placement: .bottomBar) {
-                        Button("Delete selected", role: .destructive, action: delete)
+                        Button("Delete selected", action: delete)
                     }
                 }
             }
