@@ -36,26 +36,33 @@ struct ProspectsView: View {
     var body: some View {
         NavigationStack {
             List(prospects, selection: $selectedProspects) { prospect in
-                VStack(alignment: .leading) {
-                    Text(prospect.name)
-                        .font(.headline)
-
-                    Text(prospect.emailAddress)
-                        .foregroundStyle(.secondary)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(prospect.name)
+                            .font(.headline)
+                        
+                        Text(prospect.emailAddress)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    if prospect.isContacted && filter == .none {
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(.green)
+                    }
                 }
                 .swipeActions {
                     Button("Delete", systemImage: "trash", role: .destructive) {
                         modelContext.delete(prospect)
                     }
 
-                    if prospect.isContaced {
+                    if prospect.isContacted {
                         Button("Mark Uncontacted", systemImage: "person.crop.circle.badge.xmark") {
-                            prospect.isContaced.toggle()
+                            prospect.isContacted.toggle()
                         }
                         .tint(.blue)
                     } else {
                         Button("Mark Contacted", systemImage: "person.crop.circle.fill.badge.checkmark") {
-                            prospect.isContaced.toggle()
+                            prospect.isContacted.toggle()
                         }
                         .tint(.green)
                         
@@ -101,7 +108,7 @@ struct ProspectsView: View {
             let showContactedOnly = filter == .contacted
             
             _prospects = Query(filter: #Predicate {
-                $0.isContaced == showContactedOnly
+                $0.isContacted == showContactedOnly
             }, sort: [SortDescriptor(\Prospect.name)])
         }
     }
