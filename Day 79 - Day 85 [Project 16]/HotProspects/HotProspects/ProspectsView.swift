@@ -15,7 +15,6 @@ struct ProspectsView: View {
     @Query(sort: \Prospect.name) var prospects: [Prospect]
 
     @State private var isShowingScanner = false
-    @State private var selectedProspects = Set<Prospect>()
     @State private var sortOrder = [SortDescriptor(\Prospect.name)]
     
     let filter: FilterType
@@ -59,12 +58,6 @@ struct ProspectsView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     EditButton()
                 }
-                
-                if selectedProspects.isEmpty == false {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("Delete selected", action: delete)
-                    }
-                }
             }
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(
@@ -72,9 +65,7 @@ struct ProspectsView: View {
                     simulatedData: "Cubus Maximus\nCubus@Maximus.dev",
                     completion: handleScan)
             }
-            .onAppear {
-                selectedProspects = Set<Prospect>()
-            }
+
         }
     }
     
@@ -102,12 +93,6 @@ struct ProspectsView: View {
 
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
-        }
-    }
-    
-    func delete() {
-        for prospect in selectedProspects {
-            modelContext.delete(prospect)
         }
     }
 }

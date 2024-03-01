@@ -60,6 +60,16 @@ struct ProspectsList: View {
             }
             .tag(prospect)
         }
+        .toolbar {
+            if selectedProspects.isEmpty == false {
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Delete selected", action: delete)
+                }
+            }
+        }
+        .onAppear {
+            selectedProspects = Set<Prospect>()
+        }
     }
     
     init(filter: FilterType, sortOrder: [SortDescriptor<Prospect>]) {
@@ -107,6 +117,12 @@ struct ProspectsList: View {
                     }
                 }
             }
+        }
+    }
+    
+    func delete() {
+        for prospect in selectedProspects {
+            modelContext.delete(prospect)
         }
     }
 }
