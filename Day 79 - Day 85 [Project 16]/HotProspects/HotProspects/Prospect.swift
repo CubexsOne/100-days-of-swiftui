@@ -8,6 +8,10 @@
 import Foundation
 import SwiftData
 
+enum FilterType {
+    case none, contacted, uncontacted
+}
+
 @Model
 class Prospect {
     var name: String
