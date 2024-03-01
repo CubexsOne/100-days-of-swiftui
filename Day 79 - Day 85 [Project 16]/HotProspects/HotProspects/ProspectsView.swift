@@ -102,6 +102,9 @@ struct ProspectsView: View {
                     simulatedData: "Cubus Maximus\nCubus@Maximus.dev",
                     completion: handleScan)
             }
+            .onAppear {
+                selectedProspects = Set<Prospect>()
+            }
         }
     }
     
