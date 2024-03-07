@@ -37,10 +37,10 @@ struct EditCards: View {
                     .onDelete(perform: removeCards)
                 }
             }
-        }
-        .navigationTitle("Edit Cards")
-        .toolbar {
-            Button("Done", action: done)
+            .navigationTitle("Edit Cards")
+            .toolbar {
+                Button("Done", action: done)
+            }
         }
         .onAppear(perform: loadData)
     }
