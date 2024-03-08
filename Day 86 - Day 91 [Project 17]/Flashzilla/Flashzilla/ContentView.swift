@@ -40,10 +40,15 @@ struct ContentView: View {
                     .background(.black.opacity(0.75))
                     .clipShape(.capsule)
                 ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: cards[index]) {
+                    ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
+                        CardView(card: card) { isAnswerCorrect in
                             withAnimation {
-                                removeCard(at: index)
+                                if isAnswerCorrect {
+                                    removeCard(at: index)
+                                    return
+                                }
+                                
+                                moveCardToBack(card)
                             }
                         }
                         .stacked(at: index, in: cards.count)
@@ -148,6 +153,15 @@ struct ContentView: View {
         if cards.isEmpty {
             isActive = false
         }
+    }
+    
+    func moveCardToBack(_ cardToFind: Card) {
+        guard let index = cards.firstIndex(where: { card in
+            card.id == cardToFind.id
+        }) else { return }
+        
+        cards.remove(at: index)
+        cards.insert(cardToFind, at: 0)
     }
     
     func resetCards() {
