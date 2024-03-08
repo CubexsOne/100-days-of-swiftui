@@ -28,7 +28,7 @@ struct CardView: View {
                     accessibilityDifferentiateWithoutColor
                     ? nil
                     : RoundedRectangle(cornerRadius: 25)
-                        .fill(offset.width > 0 ? .green : .red)
+                        .fill(getBackgroundColorBy(offset: offset))
                 )
                 .shadow(radius: 10)
             
@@ -74,6 +74,16 @@ struct CardView: View {
             isShowingAnswer.toggle()
         }
         .animation(.bouncy, value: offset)
+    }
+    
+    func getBackgroundColorBy(offset: CGSize) -> Color {
+        if offset.width > 0 {
+            Color.green
+        } else if offset.width < 0 {
+            Color.red
+        } else {
+            Color.white
+        }
     }
 }
 
