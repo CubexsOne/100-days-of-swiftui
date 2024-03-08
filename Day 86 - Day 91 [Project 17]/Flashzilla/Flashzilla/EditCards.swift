@@ -7,12 +7,22 @@
 
 import SwiftUI
 
+extension String {
+    func trimmed() -> String {
+        self.trimmingCharacters(in: .whitespaces)
+    }
+}
+
 struct EditCards: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var cards = [Card]()
     @State private var newPrompt = ""
     @State private var newAnswer = ""
+    
+    var isValid: Bool {
+        newAnswer.trimmed().isEmpty == false && newPrompt.trimmed().isEmpty == false
+    }
     
     var body: some View {
         NavigationStack {
@@ -22,6 +32,7 @@ struct EditCards: View {
                     TextField("Answer", text: $newAnswer)
                     
                     Button("Add Card", action: addCard)
+                        .disabled(isValid == false)
                 }
                 
                 Section {
@@ -64,13 +75,16 @@ struct EditCards: View {
     }
     
     func addCard() {
-        let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
-        let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
+        let trimmedPrompt = newPrompt.trimmed()
+        let trimmedAnswer = newAnswer.trimmed()
         
         guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
         let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer)
         cards.insert(card, at: 0)
         saveData()
+        
+        newPrompt = ""
+        newAnswer = ""
     }
     
     func removeCards(at offsets: IndexSet) {
