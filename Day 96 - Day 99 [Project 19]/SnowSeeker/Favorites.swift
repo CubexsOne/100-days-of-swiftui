@@ -14,7 +14,14 @@ class Favorites {
     private let key = "Favorites"
     
     init() {
-        resorts = []
+        if let data = try? Data(contentsOf: URL.documentsDirectory.appending(path: key)) {
+            if let resorts = try? JSONDecoder().decode(Set<String>.self, from: data) {
+                self.resorts = resorts
+                return
+            }
+        }
+
+        self.resorts = []
     }
     
     func contains(_ resort: Resort) -> Bool {
@@ -32,6 +39,11 @@ class Favorites {
     }
     
     func save() {
-        
+        do {
+            let data = try JSONEncoder().encode(resorts)
+            try data.write(to: URL.documentsDirectory.appending(path: key))
+        } catch {
+            print("Failed to save activity data")
+        }
     }
 }
